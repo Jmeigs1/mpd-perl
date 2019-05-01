@@ -5,6 +5,7 @@ requires 'Excel::Writer::XLSX';
 requires 'File::Basename';
 requires 'Getopt::Long';
 requires 'Hash::Merge::Simple';
+requires 'IPC::Run';
 requires 'Log::Any::Adapter';
 requires 'Log::Fast';
 requires 'Moose';
