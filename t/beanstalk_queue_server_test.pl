@@ -1,4 +1,3 @@
-
 #!/usr/bin/env perl
 
 use 5.10.0;
@@ -17,18 +16,22 @@ use Try::Tiny;
 use Hash::Merge::Simple qw/merge/;
 use YAML::XS qw/LoadFile/;
 
+use Cwd 'abs_path';
+
 use lib './lib';
 
 use MPD;
 
 my $DEBUG = 0;
-my $conf  = LoadFile( $ARGV[0] || './config/queue.yaml' );
+
+# Should be located in mpd-perl/bin
+my $HomeDir = abs_path( dirname(__FILE__) . '/..' );
+my $conf  = LoadFile( $HomeDir . '/config/queue.yaml' );
+my $configPathBaseDir = $HomeDir . '/config/docker/';
 
 # Beanstalk servers will be sharded
 my $beanstalkHost = $conf->{beanstalk_host_1};
 my $beanstalkPort = $conf->{beanstalk_port_1};
-
-my $configPathBaseDir = "./config/docker/";
 
 my $verbose = 1;
 

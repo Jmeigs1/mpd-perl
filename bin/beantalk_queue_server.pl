@@ -18,6 +18,7 @@ use Cwd 'abs_path';
 use Beanstalk::Client;
 use Parallel::ForkManager;
 use Cpanel::JSON::XS;
+use Data::Structure::Util qw( unbless );
 use DDP output => 'stdout';
 use Getopt::Long;
 use File::Basename;
@@ -95,7 +96,9 @@ while ( my $job = $beanstalk->reserve ) {
   my ( $err, $result ) = handleJob( $jobDataHref, $job->id );
 
   if ($err) {
-    say "job " . $job->id . " failed with $err";
+    say "job " . $job->id . " failed with $err\n";
+
+    say("Error type: " . ref $err);
 
     $beanstalkEvents->put(
       {
@@ -104,7 +107,7 @@ while ( my $job = $beanstalk->reserve ) {
           {
             event   => 'failed',
             queueId => $job->id,
-            reason  => $err,
+            reason  => unbless $err,
           }
         )
       }
