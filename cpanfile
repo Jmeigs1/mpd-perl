@@ -1,5 +1,7 @@
 requires 'Beanstalk::Client';
 requires 'Cpanel::JSON::XS';
+requires 'Data::Dump';
+requires 'Data::Structure::Util';
 requires 'DDP';
 requires 'Excel::Writer::XLSX';
 requires 'File::Basename';

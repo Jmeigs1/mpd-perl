@@ -32,7 +32,7 @@ RUN mkdir -p /root/perl5/lib/perl \
     && cpanm --local-lib=/root/perl5 local::lib \
     && cd /root/mpd-perl \
     && eval $(perl -I /root/perl5/lib/perl5 -Mlocal::lib) \
-    && cpanm --installdeps .
+    && cpanm -n --installdeps .
 
 # MPD C
 RUN git clone https://github.com/wingolab-org/mpd-c  /root/mpd-c \
